@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aviral Singh — Agentic AI Engineer & Full-Stack Developer</title>
-  <meta name="description" content="Aviral Singh — Agentic AI Engineer and Full-Stack Developer." />
+  <title>Aviral Singh</title>
+  <meta name="description" content="Aviral Singh — Agentic AI Engineer & Full-Stack Developer." />
 
   <!-- Prevent theme flash before CSS loads -->
   <script>
@@ -27,152 +27,70 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Layered canvas: grid (behind) + grain (texture) + frame (border) -->
+  <!-- Layered canvas: grid (behind) + frame (border) -->
   <div class="bg-grid" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="frame" aria-hidden="true">
-    <span class="tick tick--tl">+</span>
-    <span class="tick tick--tr">+</span>
-    <span class="tick tick--bl">+</span>
-    <span class="tick tick--br">+</span>
+  <div class="frame" aria-hidden="true"></div>
+
+  <!-- Theme toggle, pinned top-right inside the frame -->
+  <div class="toggle" role="group" aria-label="Color theme">
+    <button type="button" class="toggle__btn" data-set-theme="light" aria-label="Light theme">Light</button>
+    <button type="button" class="toggle__btn" data-set-theme="dark" aria-label="Dark theme">Dark</button>
   </div>
 
-  <div class="page">
+  <main class="wrap">
 
-    <!-- ===================== HEADER ===================== -->
-    <header class="topbar">
-      <a href="#top" class="topbar__mark">AS</a>
-      <nav class="topbar__nav">
-        <a href="#work">Work</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="toggle" role="group" aria-label="Color theme">
-        <button type="button" class="toggle__btn" data-set-theme="light" aria-label="Light theme">Light</button>
-        <button type="button" class="toggle__btn" data-set-theme="dark" aria-label="Dark theme">Dark</button>
-      </div>
-    </header>
+    <h1 class="name">Aviral Singh</h1>
+    <p class="tagline">agentic ai engineer, full-stack developer</p>
 
-    <main id="top">
+    <nav class="social">
+      <a href="mailto:aviral02singh@gmail.com">email</a>
+      <a href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">github</a>
+      <a href="https://www.linkedin.com/in/aviral-singh02" target="_blank" rel="noopener">linkedin</a>
+    </nav>
 
-      <!-- ===================== HERO ===================== -->
-      <section class="hero">
-        <h1 class="hero__name">Aviral&nbsp;Singh</h1>
-        <p class="hero__role">Agentic&nbsp;AI Engineer <span class="sep">/</span> Full-Stack Developer</p>
-        <p class="hero__lede">
-          I build AI agents, on-chain infrastructure, and full-stack products end to end.
-        </p>
-        <ul class="hero__links">
-          <li><a href="mailto:aviral02singh@gmail.com">Email <span class="arr">↗</span></a></li>
-          <!-- TODO: replace with your real GitHub / LinkedIn URLs -->
-          <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a></li>
-          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a></li>
-        </ul>
-      </section>
+    <p class="bio">
+      undergrad at <a href="https://www.iitr.ac.in/" target="_blank" rel="noopener">IIT Roorkee</a>.
+      <a href="https://season.kde.org/" target="_blank" rel="noopener">Season of KDE ’26</a> mentee;
+      previously full-stack engineering intern at a stealth AI startup.
+    </p>
 
-      <!-- ===================== WORK ===================== -->
-      <section class="section" id="work">
-        <div class="section__head">
-          <span class="section__no">01</span>
-          <h2 class="section__title">Experience</h2>
-        </div>
+    <p class="creds">
+      Selected for the <a href="https://protocol.ai/" target="_blank" rel="noopener">Protocol Labs Dev Guild</a>
+      (PLDG) <strong>Cohort 3</strong> and BuildGuild <strong>Batch 15</strong>.
+    </p>
 
-        <article class="entry">
-          <div class="entry__meta">
-            <p class="entry__date">2026</p>
-            <p class="entry__tag">Mentee</p>
-          </div>
-          <div class="entry__body">
-            <h3 class="entry__title">Season of KDE ’26</h3>
-            <p class="entry__line">Scripty localization across the KDE translation toolchain.</p>
-          </div>
-        </article>
+    <p class="quick">
+      <span class="ar">→</span>
+      <a href="https://drive.google.com/file/d/19BVLCO_xLwjzgLN119IpIoptql8IyyqT/view?usp=sharing" target="_blank" rel="noopener">resume / cv</a>
+    </p>
+    <p class="quick">
+      <span class="ar">→</span> <a href="achievements.html">achievements</a>
+    </p>
 
-        <article class="entry">
-          <div class="entry__meta">
-            <p class="entry__date">2026</p>
-            <p class="entry__tag">Open Source Contributor</p>
-          </div>
-          <div class="entry__body">
-            <h3 class="entry__title">Protocol Labs Dev Guild</h3>
-            <p class="entry__line">Cross-chain archival and storage tooling, built in Go.</p>
-          </div>
-        </article>
+    <section class="block">
+      <p class="label">Projects</p>
+      <ul class="projects">
+        <li class="proj">
+          <a class="proj__name" href="https://github.com/Av1ralS1ngh/Velmora" target="_blank" rel="noopener">Velmora</a>
+          <span class="proj__desc">— on-chain game: NFTs, Soulbound tokens &amp; LayerZero.</span>
+        </li>
+        <li class="proj">
+          <!-- TODO: swap to the exact SovereignClaw repo URL -->
+          <a class="proj__name" href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">SovereignClaw</a>
+          <span class="proj__desc">— encrypted multi-agent memory framework, on-chain.</span>
+        </li>
+        <li class="proj">
+          <!-- TODO: swap to the exact RAVEN repo URL -->
+          <a class="proj__name" href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">RAVEN</a>
+          <span class="proj__desc">— financial due-diligence AI copilot.</span>
+        </li>
+      </ul>
+      <p class="quick">
+        <span class="ar">→</span> <a href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">all projects</a>
+      </p>
+    </section>
 
-        <article class="entry">
-          <div class="entry__meta">
-            <p class="entry__date">2025</p>
-            <p class="entry__tag">Full-Stack Intern</p>
-          </div>
-          <div class="entry__body">
-            <h3 class="entry__title">Stealth AI Startup</h3>
-            <p class="entry__line">Voice-first AI survey platform, architected end to end.</p>
-          </div>
-        </article>
-      </section>
-
-      <!-- ===================== PROJECTS ===================== -->
-      <section class="section" id="projects">
-        <div class="section__head">
-          <span class="section__no">02</span>
-          <h2 class="section__title">Selected Work</h2>
-        </div>
-
-        <article class="entry">
-          <div class="entry__meta">
-            <ul class="chips">
-              <li>Multi-Agent AI</li>
-              <li>0G Chain</li>
-              <li>ERC-7857</li>
-            </ul>
-          </div>
-          <div class="entry__body">
-            <h3 class="entry__title">
-              SovereignClaw
-              <!-- TODO: replace with the real repo URL -->
-              <a class="entry__link" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
-            </h3>
-            <p class="entry__line">Encrypted multi-agent memory framework, on-chain.</p>
-          </div>
-        </article>
-
-        <article class="entry">
-          <div class="entry__meta">
-            <ul class="chips">
-              <li>LangGraph</li>
-              <li>FastAPI</li>
-            </ul>
-          </div>
-          <div class="entry__body">
-            <h3 class="entry__title">
-              RAVEN
-              <!-- TODO: replace with the real repo URL -->
-              <a class="entry__link" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
-            </h3>
-            <p class="entry__line">Financial due-diligence AI copilot.</p>
-          </div>
-        </article>
-      </section>
-
-      <!-- ===================== CONTACT ===================== -->
-      <section class="section section--contact" id="contact">
-        <div class="section__head">
-          <span class="section__no">03</span>
-          <h2 class="section__title">Get in touch</h2>
-        </div>
-        <a class="contact__mail" href="mailto:aviral02singh@gmail.com">aviral02singh@gmail.com</a>
-        <ul class="hero__links contact__links">
-          <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a></li>
-          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a></li>
-        </ul>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <span>© 2026 Aviral Singh</span>
-      <span>Paper, ink &amp; grid — built by hand.</span>
-    </footer>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>

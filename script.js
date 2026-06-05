@@ -9,10 +9,20 @@
     });
   }
 
-  function setTheme(theme) {
+  function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     try { localStorage.setItem('theme', theme); } catch (e) {}
     sync(theme);
+  }
+
+  function setTheme(theme) {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Cross-fade the whole page (gradient + grid included) where supported.
+    if (typeof document.startViewTransition === 'function' && !reduce) {
+      document.startViewTransition(function () { applyTheme(theme); });
+    } else {
+      applyTheme(theme);
+    }
   }
 
   // Reflect whatever the inline head script already applied.

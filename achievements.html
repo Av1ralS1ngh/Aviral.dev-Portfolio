@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviral Singh — Achievements</title>
+  <meta name="description" content="Achievements & awards — Aviral Singh." />
+
+  <!-- Prevent theme flash before CSS loads -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t) {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Layered canvas: grid (behind) + frame (border) -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
+
+  <!-- Theme toggle, pinned top-right inside the frame -->
+  <div class="toggle" role="group" aria-label="Color theme">
+    <button type="button" class="toggle__btn" data-set-theme="light" aria-label="Light theme">Light</button>
+    <button type="button" class="toggle__btn" data-set-theme="dark" aria-label="Dark theme">Dark</button>
+  </div>
+
+  <main class="wrap">
+
+    <p class="back"><span class="ar">←</span> <a href="index.html">aviral singh</a></p>
+
+    <h1 class="name">Achievements</h1>
+    <p class="tagline">10+ wins across blockchain, ai/ml &amp; web</p>
+
+    <section class="block">
+      <p class="label">Hackathons</p>
+      <ul class="ach">
+        <li><span class="ach__w">Winner</span> — DU Hacks 4.0</li>
+        <li><span class="ach__w">Winner</span> — AMHacks 2025</li>
+        <li><span class="ach__w">Winner</span> — UniDAO &amp; Open Track, StackTooDeep v2.0</li>
+        <li><span class="ach__w">Winner</span> — Bit by Bit, Cognizance ’25</li>
+        <li><span class="ach__w">Winner</span> — HackMoney by EthGlobal</li>
+        <li><span class="ach__w">Winner</span> — Hathor Hackathon</li>
+        <li><span class="ach__w">Coinbase Prize Pool</span> — Agentic Ethereum</li>
+        <li><span class="ach__w">Runner-Up</span> — ICICI Bank Hackathon (Unified ERP Systems)</li>
+        <li><span class="ach__w">100xDevs Track Winner</span> — SyntaxError 2024</li>
+        <li><span class="ach__w">3rd Place</span> — Blockathon, Cognizance ’24</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <p class="label">Recognition</p>
+      <ul class="honors">
+        <li>Top <strong>1%</strong> of 5,000+ at <a href="https://www.summerofbitcoin.org/" target="_blank" rel="noopener">Summer of Bitcoin</a></li>
+        <li><a href="https://www.startupschool.org/" target="_blank" rel="noopener">Y Combinator Startup School</a> · $25K in AI credits</li>
+        <li>Invited to the Starknet &amp; Aptos Hacker Houses as a recognized Web3 builder</li>
+        <li>10+ merged PRs across open-source Linux &amp; Bitcoin infrastructure</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

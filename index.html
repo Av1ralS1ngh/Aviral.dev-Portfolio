@@ -10,11 +10,11 @@
   <script>
     (function () {
       try {
-        var t = localStorage.getItem('theme');
-        if (!t) {
-          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+        var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
+        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
+        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
         document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
       } catch (e) {}
     })();
   </script>
@@ -49,14 +49,15 @@
     </nav>
 
     <p class="bio">
-      undergrad at <a href="https://www.iitr.ac.in/" target="_blank" rel="noopener">IIT Roorkee</a>.
-      <a href="https://season.kde.org/" target="_blank" rel="noopener">Season of KDE ’26</a> mentee;
-      previously full-stack engineering intern at a stealth AI startup.
+      undergrad of IIT Roorkee. Machine Learning intern at
+      <a href="https://decompute.run" target="_blank" rel="noopener">Decompute</a> CA;
+      Previously Founding Engineer at Pluve.ai,
+      <a href="https://season.kde.org/" target="_blank" rel="noopener">Season of KDE ’26</a> mentee contributing to Scripty
     </p>
 
     <p class="creds">
-      Selected for the <a href="https://protocol.ai/" target="_blank" rel="noopener">Protocol Labs Dev Guild</a>
-      (PLDG) <strong>Cohort 3</strong> and BuildGuild <strong>Batch 15</strong>.
+      <a href="https://www.pldg.xyz" target="_blank" rel="noopener">PLDG</a> fellow and
+      <a href="https://buidlguidl.com" target="_blank" rel="noopener">BuidlGuidl</a> graduate.
     </p>
 
     <p class="quick">
@@ -75,18 +76,37 @@
           <span class="proj__desc">— on-chain game: NFTs, Soulbound tokens &amp; LayerZero.</span>
         </li>
         <li class="proj">
-          <!-- TODO: swap to the exact SovereignClaw repo URL -->
-          <a class="proj__name" href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">SovereignClaw</a>
+          <a class="proj__name" href="https://github.com/Av1ralS1ngh/Sovereign-Claw" target="_blank" rel="noopener">SovereignClaw</a>
           <span class="proj__desc">— encrypted multi-agent memory framework, on-chain.</span>
         </li>
         <li class="proj">
-          <!-- TODO: swap to the exact RAVEN repo URL -->
-          <a class="proj__name" href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">RAVEN</a>
+          <a class="proj__name" href="https://github.com/Av1ralS1ngh/RAVEN" target="_blank" rel="noopener">RAVEN</a>
           <span class="proj__desc">— financial due-diligence AI copilot.</span>
         </li>
       </ul>
       <p class="quick">
-        <span class="ar">→</span> <a href="https://github.com/Av1ralS1ngh" target="_blank" rel="noopener">all projects</a>
+        <span class="ar">→</span> <a href="https://github.com/Av1ralS1ngh?tab=repositories" target="_blank" rel="noopener">all projects</a>
+      </p>
+    </section>
+
+    <section class="block">
+      <p class="label">Writing</p>
+      <ul class="writing">
+        <li class="write">
+          <span class="write__date">14 march 2026</span>
+          <a class="write__title" href="https://blogs.kde.org/2026/03/14/season-of-kde-2026-untangling-scriptys-file-paths/" target="_blank" rel="noopener">Untangling Scripty’s File Paths</a>
+        </li>
+        <li class="write">
+          <span class="write__date">26 february 2026</span>
+          <a class="write__title" href="writing/encrypted-agent-memory.html">encrypting agent memory with wallet-derived keys</a>
+        </li>
+        <li class="write">
+          <span class="write__date">9 february 2026</span>
+          <a class="write__title" href="writing/cross-chain-archival.html">shipping a cross-chain archival pipeline in go</a>
+        </li>
+      </ul>
+      <p class="quick">
+        <span class="ar">→</span> <a href="writing/index.html">see more</a>
       </p>
     </section>
 

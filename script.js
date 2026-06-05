@@ -9,10 +9,22 @@
     });
   }
 
+  // Carry the active theme on internal links so it survives navigation
+  // (localStorage isn't reliable across file:// pages).
+  function propagateTheme(theme) {
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || /^(https?:|mailto:|tel:|#)/i.test(href)) return;
+      var base = href.split('?')[0].split('#')[0];
+      a.setAttribute('href', base + '?theme=' + theme);
+    });
+  }
+
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     try { localStorage.setItem('theme', theme); } catch (e) {}
     sync(theme);
+    propagateTheme(theme);
   }
 
   function setTheme(theme) {
@@ -25,8 +37,10 @@
     }
   }
 
-  // Reflect whatever the inline head script already applied.
-  sync(root.getAttribute('data-theme') || 'light');
+  // Reflect whatever the inline head script already applied, and seed links.
+  var current = root.getAttribute('data-theme') || 'light';
+  sync(current);
+  propagateTheme(current);
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => setTheme(btn.dataset.setTheme));

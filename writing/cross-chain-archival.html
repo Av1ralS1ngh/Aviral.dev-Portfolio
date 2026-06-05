@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>shipping a cross-chain archival pipeline in go — Aviral Singh</title>
+  <meta name="description" content="shipping a cross-chain archival pipeline in go — Aviral Singh." />
+
+  <!-- Prevent theme flash before CSS loads -->
+  <script>
+    (function () {
+      try {
+        var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
+        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
+        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <!-- Layered canvas: grid (behind) + frame (border) -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
+
+  <!-- Theme toggle, pinned top-right inside the frame -->
+  <div class="toggle" role="group" aria-label="Color theme">
+    <button type="button" class="toggle__btn" data-set-theme="light" aria-label="Light theme">Light</button>
+    <button type="button" class="toggle__btn" data-set-theme="dark" aria-label="Dark theme">Dark</button>
+  </div>
+
+  <main class="wrap">
+    <article class="article">
+      <p class="back"><span class="ar">←</span> <a href="../index.html">aviral singh</a></p>
+
+      <h1 class="article__title">shipping a cross-chain archival pipeline in go</h1>
+      <p class="article__meta">9 february 2026 · draft</p>
+
+      <!-- TODO: replace the placeholder body below with your post -->
+      <div class="article__body">
+        <p><em>Placeholder post.</em> This page is ready for your writing — replace everything below with the real thing. The layout shows how paragraphs, headings, lists and links render in the site’s design.</p>
+        <p>Open with a short hook: what you built or learned, and why it mattered. Keep paragraphs tight and the measure comfortable to read.</p>
+        <h2>How it works</h2>
+        <p>Walk through the core idea. You can use <a href="../index.html">inline links</a>, lists, and short code references as needed.</p>
+        <ul>
+          <li>One concrete point.</li>
+          <li>Another, with a number or result.</li>
+          <li>A takeaway the reader can use.</li>
+        </ul>
+        <p>Close with what’s next.</p>
+      </div>
+    </article>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>

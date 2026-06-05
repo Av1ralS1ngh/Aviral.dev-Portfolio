@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviral Singh — Writing</title>
+  <meta name="description" content="Writing — notes on agents, systems & the open web by Aviral Singh." />
+
+  <!-- Prevent theme flash before CSS loads -->
+  <script>
+    (function () {
+      try {
+        var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
+        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
+        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <!-- Layered canvas: grid (behind) + frame (border) -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
+
+  <!-- Theme toggle, pinned top-right inside the frame -->
+  <div class="toggle" role="group" aria-label="Color theme">
+    <button type="button" class="toggle__btn" data-set-theme="light" aria-label="Light theme">Light</button>
+    <button type="button" class="toggle__btn" data-set-theme="dark" aria-label="Dark theme">Dark</button>
+  </div>
+
+  <main class="wrap">
+
+    <p class="back"><span class="ar">←</span> <a href="../index.html">aviral singh</a></p>
+
+    <h1 class="name">Writing</h1>
+    <p class="tagline">notes on agents, systems &amp; the open web</p>
+
+    <section class="block">
+      <ul class="writing">
+        <li class="write">
+          <span class="write__date">14 march 2026</span>
+          <a class="write__title" href="https://blogs.kde.org/2026/03/14/season-of-kde-2026-untangling-scriptys-file-paths/" target="_blank" rel="noopener">untangling scripty’s file paths</a>
+        </li>
+        <li class="write">
+          <span class="write__date">26 february 2026</span>
+          <a class="write__title" href="encrypted-agent-memory.html">encrypting agent memory with wallet-derived keys</a>
+        </li>
+        <li class="write">
+          <span class="write__date">9 february 2026</span>
+          <a class="write__title" href="cross-chain-archival.html">shipping a cross-chain archival pipeline in go</a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>encrypting agent memory with wallet-derived keys · Aviral Singh</title>
+  <meta name="description" content="encrypting agent memory with wallet-derived keys · Aviral Singh." />
+
+  <!-- Prevent theme flash before CSS loads -->
+  <script>
+    (function () {
+      try {
+        var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
+        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
+        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <!-- Layered canvas: grid (behind) + frame (border) -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
+
+  <!-- Theme toggle, pinned top-right inside the frame -->
+  <div class="toggle" role="group" aria-label="Color theme">
+    <button type="button" class="toggle__btn" data-set-theme="light" aria-label="Light theme">Light</button>
+    <button type="button" class="toggle__btn" data-set-theme="dark" aria-label="Dark theme">Dark</button>
+  </div>
+
+  <main class="wrap">
+    <article class="article">
+      <p class="back"><span class="ar">←</span> <a href="../index.html">aviral singh</a></p>
+
+      <h1 class="article__title">encrypting agent memory with wallet-derived keys</h1>
+      <p class="article__meta">26 february 2026 · <a href="https://github.com/Av1ralS1ngh/Sovereign-Claw" target="_blank" rel="noopener">SovereignClaw ↗</a></p>
+
+      <div class="article__body">
+        <p>Let’s be real for a second. The agents we’re all building right now have memory. They remember your name, your preferences, the project you ranted about at 2am, the wallet you connected, the weird edge cases of how you like things done. That memory is what makes an agent feel less like a chatbot and more like something that actually knows you.</p>
+
+        <p>Here’s the part nobody wants to say out loud: that memory usually lives in plaintext, on someone else’s server, behind someone else’s login. You don’t own it. You’re renting access to your own brain extension. And the second that database gets popped, leaked, or quietly sold, everything your agent learned about you is just out there.</p>
+
+        <p>That felt deeply uncool to me. So we did something about it.</p>
+
+        <h2>The core idea: your wallet is the key</h2>
+        <p>You already carry a cryptographic identity everywhere you go. It’s your wallet. The whole point of a wallet is that only you can produce a valid signature with it. Nobody can fake it, nobody can replay it without your say-so.</p>
+        <p>So instead of inventing yet another password or trusting a server to hold a secret for you, we derive the encryption key straight from your wallet.</p>
+        <p>It works like this. Your agent needs to read or write memory. It asks you to sign a fixed, deterministic message (think of it as a domain-specific handshake, not a transaction, so no gas, no funds moving). That signature is unique to your key and totally reproducible. We run it through a key derivation function and out comes a symmetric encryption key. That key never gets stored anywhere. It gets regenerated on demand, used, and dropped.</p>
+        <p>No key vault. No “trust us, it’s encrypted at rest.” The key literally does not exist until your wallet brings it into being.</p>
+
+        <h2>Encrypt before it leaves the building</h2>
+        <p>The other half of the trick is where the encryption happens. It happens client side, before a single byte touches storage. Your agent’s memory gets sealed locally, then the ciphertext gets written out to decentralized storage. The storage layer holds noise. Pretty noise, but noise. Without a signature from your wallet, it’s unreadable, full stop.</p>
+        <p>This flips the whole threat model. The classic question is “can I trust the people running the server?” With wallet-derived keys, that question mostly stops mattering, because the server never sees anything worth stealing. They host encrypted blobs. They couldn’t read your agent’s memory if they wanted to, and honestly, neither can we.</p>
+        <p>That’s the bar I think we should be holding ourselves to. Not “we promise we won’t look.” More like “we built it so we can’t.”</p>
+
+        <h2>Receipts, on chain</h2>
+        <p>Encryption is great, but you also want to know what your agent has been up to, and you want to be able to pull the plug.</p>
+        <p>Every memory write gets logged, and access is gated by an on-chain revocation registry. Translation: if you ever want to cut an agent off, you revoke. On chain, publicly verifiable, no support ticket, no waiting on a company to honor your delete request. The agent’s read path checks the registry, sees it’s been revoked, and that’s the end of it. The memory becomes a brick.</p>
+        <p>This is the part that gets me a little hyped. Deleting your data usually means trusting that a company actually deleted it. Here, revocation is a state change you control, and anyone can verify it happened. No vibes-based privacy. Actual receipts.</p>
+
+        <h2>Why this is the move</h2>
+        <p>Step back and look at where agents are heading. They’re getting persistent. They’re getting wallets. They’re starting to act on your behalf with real stakes attached. An agent that holds a rich, growing memory of your life and stores it in plaintext somewhere is a breach waiting to happen, and the blast radius only grows the more useful the agent gets.</p>
+        <p>Wallet-derived keys fix the incentive problem at the root. You hold the key because you already hold the wallet. The agent borrows access when you grant it and loses it when you revoke it. Memory stays portable, because it’s tied to your identity and not to one app’s database. Switch frontends, switch agents, and your encrypted memory comes with you, still locked, still yours.</p>
+        <p>We talk a lot about self-custody for tokens. Self-custody for cognition feels like the obvious next chapter, and barely anyone is building for it yet.</p>
+
+        <h2>The tl;dr</h2>
+        <p>Your agent’s memory is sensitive. Treat it that way.</p>
+        <ul>
+          <li>Derive the encryption key from a wallet signature instead of trusting a server to hold a secret.</li>
+          <li>Encrypt client side, store only ciphertext, keep the key ephemeral.</li>
+          <li>Gate access with an on-chain registry so revocation is real and verifiable.</li>
+        </ul>
+        <p>Your agent can remember everything. The difference is now you’re the only one who can actually read it.</p>
+        <p>If you’re building in this space, come poke holes in it. That’s how this gets better.</p>
+      </div>
+    </article>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>

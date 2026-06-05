@@ -10,11 +10,11 @@
   <script>
     (function () {
       try {
-        var t = localStorage.getItem('theme');
-        if (!t) {
-          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+        var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
+        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
+        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
         document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
       } catch (e) {}
     })();
   </script>
@@ -42,7 +42,7 @@
     <p class="back"><span class="ar">←</span> <a href="index.html">aviral singh</a></p>
 
     <h1 class="name">Achievements</h1>
-    <p class="tagline">10+ wins across blockchain, ai/ml &amp; web</p>
+    <p class="tagline">10 wins across blockchain, ai/ml &amp; web</p>
 
     <section class="block">
       <p class="label">Hackathons</p>

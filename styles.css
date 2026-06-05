@@ -89,27 +89,29 @@ body {
   right: calc(var(--frame-inset) + 14px);
   z-index: 110;
   display: inline-flex;
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: var(--bg);
+  align-items: center;
+  gap: 6px;
 }
-.toggle__btn {
+.toggle__opt {
   appearance: none;
-  background: transparent;
-  border: 0;
-  color: var(--ink-soft);
-  padding: 5px 10px;
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  font: inherit;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color 0.15s ease;
 }
-.toggle__btn + .toggle__btn { border-left: 1px solid var(--line); }
-.toggle__btn[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--bg);
+.toggle__opt[data-active="true"] { color: var(--ink); }
+.toggle__sep {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-soft);
+  opacity: 0.4;
+  user-select: none;
 }
 
 /* ---------- Page shell ---------- */
@@ -250,11 +252,26 @@ a:hover { border-color: var(--ink); }
   gap: 12px;
   font-size: 1rem;
 }
+.ach li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+.ach__t { flex: 0 1 auto; }
 .ach__w {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 1.12em;
   margin-right: 2px;
+}
+.ach__amt {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  white-space: nowrap;
 }
 
 /* ---------- Writing ---------- */

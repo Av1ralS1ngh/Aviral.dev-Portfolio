@@ -1,11 +1,11 @@
-// Theme toggle — persists choice, reflects active state on the segmented control.
+// Theme toggle — persists choice, reflects active state on the text buttons.
 (function () {
   const root = document.documentElement;
-  const buttons = document.querySelectorAll('[data-set-theme]');
+  const opts = document.querySelectorAll('[data-set-theme]');
 
   function sync(theme) {
-    buttons.forEach((btn) => {
-      btn.setAttribute('aria-pressed', String(btn.dataset.setTheme === theme));
+    opts.forEach(function (btn) {
+      btn.setAttribute('data-active', String(btn.dataset.setTheme === theme));
     });
   }
 
@@ -42,8 +42,8 @@
   sync(current);
   propagateTheme(current);
 
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => setTheme(btn.dataset.setTheme));
+  opts.forEach(function (btn) {
+    btn.addEventListener('click', function () { setTheme(btn.dataset.setTheme); });
   });
 
   // Follow the OS theme only while the user hasn't made an explicit choice.

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stop letting Claude Code eat your tokens for breakfast · Aviral Singh</title>
+  <meta name="description" content="stop letting Claude Code eat your tokens for breakfast · Aviral Singh." />
+
+  <!-- Prevent theme flash before CSS loads -->
+  <script>
+    (function () {
+      try {
+        var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
+        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
+        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <!-- Layered canvas: grid (behind) + frame (border) -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
+
+  <!-- Theme toggle, pinned top-right inside the frame -->
+  <div class="toggle" role="group" aria-label="Color theme">
+    <button type="button" class="toggle__opt" data-set-theme="light">Light</button>
+    <span class="toggle__sep" aria-hidden="true">&middot;</span>
+    <button type="button" class="toggle__opt" data-set-theme="dark">Dark</button>
+  </div>
+
+  <main class="wrap">
+    <article class="article">
+      <p class="back"><span class="ar">←</span> <a href="../index.html">aviral singh</a></p>
+
+      <h1 class="article__title">stop letting Claude Code eat your tokens for breakfast</h1>
+      <p class="article__meta">9 february 2026 · <a href="https://decompute.run" target="_blank" rel="noopener">Decompute ↗</a></p>
+
+      <div class="article__body">
+        <p>If you use Claude Code seriously, you have probably noticed the bill creeping up in a way that does not quite track with how much actual work you are doing. Every turn ships the full conversation history back to the model. The longer a session runs, the more tokens you burn just on repetition. Context bloat is quietly the biggest drain on your token budget, and it compounds fast.</p>
+
+        <p>That frustration is what led me to build Decompute.</p>
+
+        <h2>The core problem</h2>
+        <p>Most of what ends up in a Claude Code context window is filler. Build logs with hundreds of identical lines. Tool output you read once and moved on from. Error traces that repeat the same stack three times. The model does not need any of that at full fidelity to give you a good response. You are paying to send noise upstream, and it is eroding your context headroom at the same time.</p>
+
+        <p>That second part matters as much as the cost. Context headroom is how much room you have left in the window before Claude starts losing track of earlier parts of the session. If your context fills up with bloated tool output from an hour ago, you lose headroom for the stuff that actually matters: your current file, your current question, the decisions you made ten minutes ago. Compression is not just about saving money. It is about keeping your session coherent for longer.</p>
+
+        <h2>How the compression works</h2>
+        <p>The compression engine I built is called YSCompress. It sits in the gateway layer and runs on each request before it goes to Anthropic. The idea is simple: strip the context down to its information-dense parts without losing meaning.</p>
+
+        <p>In practice that means a few things. Repeated log lines get collapsed into a representative sample with a count. Tool output that is structurally redundant gets summarized. Long file contents that have not changed between turns get referenced rather than resent in full. The goal is to preserve what the model actually needs to answer your next message, and drop what it does not.</p>
+
+        <p>The key constraint I designed around is that compression has to be lossless in terms of semantics. The model should not behave differently on the output side. The response quality cannot degrade. If the compressed context would cause the model to lose something meaningful, it does not compress that part. Headroom savings come from cutting the genuinely redundant stuff, not from cutting corners.</p>
+
+        <h2>The architecture</h2>
+        <p>Decompute is a local gateway that intercepts the requests Claude Code makes to Anthropic. Claude Code sends to localhost instead of directly to the API, the gateway compresses and routes, and the response comes back the same way. From Claude Code's perspective, nothing changed. Same model, same API shape, same output.</p>
+
+        <p>The routing layer is called Yellowstone. It handles the proxy logic and makes sure compressed requests land at the right endpoint cleanly. The extension and the CLI both talk to it the same way.</p>
+
+        <p>It is BYOK by design. Your Anthropic key lives on your machine in a local file with owner-only permissions. It is never committed, never synced through VS Code, never touches any server I run. The gateway only ever sees the request in transit, compresses it, and forwards it. I wanted to build something I would actually trust to run on my own machine, and that meant not creating any reason to hand over credentials.</p>
+
+        <h2>The VS Code extension</h2>
+        <p>I built a VS Code extension to make routing opt-in without requiring terminal setup. Install it, run "Enable Routing," and it points both the Claude Code terminal CLI and the panel at the local gateway. The status bar shows you whether routing is active and how your usage looks.</p>
+
+        <p>A few things I was deliberate about: it does not turn on silently, it does not break anything if the gateway is not running, and it does not touch your key storage. The extension is intentionally a thin client. The compression logic lives server side. The extension just wires things up and stays out of the way.</p>
+
+        <h2>What it actually changes</h2>
+        <p>The practical effect in a long session is that your context window stays cleaner. You can go deeper into a problem before hitting limits. The model retains more of the session that matters. And your token spend scales with how much you are actually doing, not with how much log output accumulated in the first twenty minutes.</p>
+
+        <p>The savings are heaviest on the kind of context Claude Code generates naturally: verbose build output, repeated file reads, long tool responses. On already-tight short prompts there is not much to compress and it mostly passes through. But those are not the sessions where cost or headroom is ever really the problem anyway.</p>
+
+        <p>If you have been watching your usage climb without a clear reason, this is probably where it is going.</p>
+      </div>
+    </article>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>

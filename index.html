@@ -11,10 +11,13 @@
     (function () {
       try {
         var t = (location.search.match(/[?&]theme=(light|dark)/) || [])[1];
-        if (!t) { try { t = localStorage.getItem('theme'); } catch (e) {} }
-        if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        if (!t) {
+          try {
+            if (localStorage.getItem('theme-explicit') === '1') t = localStorage.getItem('theme');
+          } catch (e) {}
+        }
+        if (t !== 'light' && t !== 'dark') t = 'light';
         document.documentElement.setAttribute('data-theme', t);
-        try { localStorage.setItem('theme', t); } catch (e) {}
       } catch (e) {}
     })();
   </script>
@@ -50,9 +53,10 @@
     </nav>
 
     <p class="bio">
-      Undergrad of IIT Roorkee. ML Engineer at
-      <a href="https://decompute.run" target="_blank" rel="noopener">Decompute</a> CA;<br>
-      Previously Founding Engineer at Pluve.ai;
+      Undergrad of IIT Roorkee. SWE - RL Environments at
+      <a href="https://polymathlabs.ai/" target="_blank" rel="noopener">Polymath</a> (YC W'26);<br>
+      Previously ML Engineer at
+      <a href="https://decompute.run" target="_blank" rel="noopener">Decompute</a> CA &amp; Founding Engineer at Pluve.ai;
       <a href="https://season.kde.org/" target="_blank" rel="noopener"><br>
         Season of KDE ‘26</a> mentee contributing to <a href="https://invent.kde.org/sysadmin/l10n-scripty/-/blob/master/README" target="_blank" rel="noopener">Scripty</a>
     </p>
@@ -64,7 +68,7 @@
 
     <p class="quick">
       <span class="ar">→</span>
-      <a href="https://drive.google.com/file/d/14u9zz09zHcTJ-T8rAUZrz8B79vUxJIpJ/view?usp=sharing" target="_blank" rel="noopener">resume / cv</a>
+      <a href="https://drive.google.com/file/d/1Ez3uFMK6Gsk4tWPqVikNDtkziG4ytrkh/view" target="_blank" rel="noopener">resume / cv</a>
     </p>
     <p class="quick">
       <span class="ar">→</span> <a href="achievements.html">achievements</a>
